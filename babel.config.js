@@ -7,7 +7,7 @@ module.exports = {
       {
         modules: false,
         targets: {
-          node: pkg.engines.node
+          node: pkg.engines.node.slice(2)
         }
       }
     ]
