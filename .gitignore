@@ -1,0 +1,27 @@
+# Include your project-specific ignores in this file
+# Read about how to use .gitignore: https://help.github.com/articles/ignoring-files
+
+build
+database.sqlite
+node_modules
+ncp-debug.log
+npm-debug.log
+
+# nyc
+coverage
+.nyc_output
+
+# IDE
+.idea
+.vscode
+
+.DS_Store
+
+tmp
+
+*.zip
+*.tgz
+
+/.nyc_output
+
+/dist
