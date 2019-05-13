@@ -1,6 +1,6 @@
 {
   "name": "rollup-plugin-by-output",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "rollup-plugin-by-output",
   "main": "dist/rollup-plugin-by-output.cjs.js",
   "module": "dist/rollup-plugin-by-output.esm.js",
