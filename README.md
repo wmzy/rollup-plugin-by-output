@@ -16,12 +16,12 @@ npm i -D rollup-plugin-by-output
 // rollup.config.js
 import babel from 'rollup-plugin-babel';
 import terser from 'rollup-plugin-terser';
-import plugins from 'rollup-plugin-by-output';
+import plugins, {file} from 'rollup-plugin-by-output';
 
 
 export default {
   // ...
-  plugins: plugins(babel(), [o => (o.file === pkg.browser), terser()]),
+  plugins: plugins(babel(), [file(pkg.browser), terser()]),
   output: {
     globals: {
       lodash: '_'

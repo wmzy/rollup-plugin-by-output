@@ -3,6 +3,7 @@ import pkg from './package.json';
 
 export default {
   input: 'src/index.js',
+  external: ['lodash'],
   plugins: [babel({exclude: ['node_modules/**']})],
   output: [
     {

@@ -1,3 +1,6 @@
+import assert from 'assert';
+import _ from 'lodash';
+
 const wrappers = {
   outputOptions(filter, fn) {
     return function outputOptionsWrapper(outputOptions) {
@@ -21,16 +24,15 @@ const wrappers = {
 export function when(filter, plugin) {
   const {name, ...rest} = plugin;
 
-  Object.keys(rest).forEach(k => {
-    const wrapper = wrappers[k];
-    if (!wrapper) {
-      throw new Error(`[rollup-plugin-by-output] not support plugin: ${name}`);
-    }
+  return {
+    name,
+    ..._.mapValues(rest, (v, k) => {
+      const wrapper = wrappers[k];
+      assert(wrapper, `not support plugin: ${name} - ${k}`);
 
-    plugin[k] = wrapper(filter, plugin[k]);
-  });
-
-  return plugin;
+      return wrapper(filter, v);
+    })
+  };
 }
 
 export function whenAll(filter, plugins) {
@@ -38,8 +40,28 @@ export function whenAll(filter, plugins) {
 }
 
 export default function plugins(...pluginList) {
-  return pluginList.map(plugin => {
-    if (!Array.isArray(plugin)) return plugin;
-    return when(...plugin);
+  return _.flatMap(pluginList, plugin => {
+    if (!_.isArray(plugin)) return plugin;
+
+    const [filter, plugins] = plugin;
+    return _.isArray(plugins)
+      ? whenAll(filter, plugins)
+      : when(filter, plugins);
   });
+}
+
+export function prop(key, filter) {
+  if (_.isString(filter)) return out => out[key] === filter;
+  if (_.isRegExp(filter)) return out => filter.test(out[key]);
+  if (_.isFunction(filter)) return out => filter(out[key]);
+
+  throw new Error('not support filter type');
+}
+
+export function format(filter) {
+  return prop('format', filter);
+}
+
+export function file(filter) {
+  return prop('file', filter);
 }
