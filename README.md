@@ -58,7 +58,7 @@ This plugin (maybe not a plugin) gives you a slightly elegant and efficient solu
 import plugins, {when, whenAll, prop, format, file} from 'rollup-plugin-by-output';
 ```
 
-### plugins
+### Plugins
 
 ```js
 {
@@ -84,7 +84,7 @@ The filter is a predicate function, the parameter is an output config object. If
 
 `when` and `whenAll` is convenient for few filters and `plugins` is convenient for multiple filters.
 
-### filter helpers
+### Filter helpers
 
 There are three [simple](https://github.com/wmzy/rollup-plugin-by-output/blob/master/src/index.js#L53) but useful filter helpers: `prop`, `format`, `file`.
 
@@ -110,6 +110,10 @@ when(file(pkg.browser), pluginA)
 format = filter => prop('format', filter)
 file = filter => prop('file', filter)
 ```
+
+## Examples
+
+* [lib-starter](https://github.com/wmzy/lib-starter/blob/master/rollup.config.js)
 
 ## Workflow
 
